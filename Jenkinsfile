@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'M3' // Make sure 'M3' is configured in your Global Tool Configuration
+        maven 'M3' // Make sure this matches the name of the Maven installation in your Jenkins configuration.
     }
     stages {
         stage('Build') {
@@ -22,12 +22,11 @@ pipeline {
     }
     post {
         always {
-            // Use the publishCoverage step provided by the Code Coverage API plugin, which may need to be installed separately
+            // This step requires the Code Coverage API plugin to be installed in Jenkins.
             publishCoverage adapters: [jacocoAdapter('**/target/site/jacoco/jacoco.xml')]
         }
     }
     triggers {
-        cron('H/10 * * * 4') // This triggers the build every 10 minutes on Thursdays
+        cron('H/10 * * * 4') // This will trigger the pipeline every 10 minutes on Thursdays.
     }
 }
-
